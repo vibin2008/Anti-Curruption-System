@@ -569,8 +569,17 @@ function close_comment(){
 }
 
 
-function post_comment(){
+function getall() {
 
-  
+  fetch('https://ayla-ropier-consuela.ngrok-free.dev/all', {
+    method: "GET",
+    headers: {
+      "ngrok-skip-browser-warning": "true"
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log(data);
+  });
 
 }
