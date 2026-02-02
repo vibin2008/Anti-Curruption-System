@@ -579,7 +579,59 @@ function getall() {
   })
   .then(response => response.json())
   .then(data => {
-      console.log(data);
+      for(let i=0 ; i<data.length ; i++){
+        var main = document.getElementById('main_box');
+        var element = document.createElement('div');
+        element.className = 'fund'; 
+        var topic = document.createElement('h4');
+        topic.textContent = data[i].purpose;
+        var sub_topic = document.createElement('h5');
+        sub_topic.textContent = data[i].state + ' , ' + data[i].district;
+        const br = document.createElement('br');
+
+        element.append(topic);
+        element.append(sub_topic);
+        main.append(element);
+        main.append(br);
+
+      }
   });
+
+}
+
+function getsort() {
+  var state = document.getElementById('state').value;
+  var district = document.getElementById('district').value;
+  if(state === ""){
+    getall()
+  }
+  else{
+    fetch(`https://ayla-ropier-consuela.ngrok-free.dev/sort?state=${state}&district=${district}`, {
+      method: "GET",
+      headers: {
+        "ngrok-skip-browser-warning": "true"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+        var main = document.getElementById('main_box');
+        main.innerHTML = '';
+        for(let i=0 ; i<data.length ; i++){
+          var element = document.createElement('div');
+          element.className = 'fund'; 
+          var topic = document.createElement('h4');
+          topic.textContent = data[i].purpose;
+          var sub_topic = document.createElement('h5');
+          sub_topic.textContent = data[i].state + ' , ' + data[i].district;
+          const br = document.createElement('br');
+
+          element.append(topic);
+          element.append(sub_topic);
+          main.append(element);
+          main.append(br);
+
+        }
+    });
+    }
 
 }

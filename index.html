@@ -12,23 +12,22 @@
             <select name="state" id="state" onchange="district()">
                 <option value="">---Select State---</option>
             </select>
-            <select name="district" id="district">
+            <select name="district" id="district" oninput="getsort()">
                 <option value="">---Select District---</option>
             </select>            
         </nav>
         <br><br>
-        <div id="comment">
+        <div id="comment" class="comment">
             <div id="message">
             </div>
-            <div id="input_div">
+            <div id="input_div" class="input">
                 <textarea name="input_box" id="input_box" rows="4"></textarea>
                 <button class="send-btn" onclick="post_comment()">
                     ↑
                 </button>
             </div>
         </div>
-        <div onclick="comment()">
-            <h4>Road Construction</h4>
+        <div onclick="comment()" id="main_box">
         </div>
     </body>
 </html>

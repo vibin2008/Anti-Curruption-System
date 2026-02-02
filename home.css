@@ -11,7 +11,7 @@ nav{
 }
 
 
-div{
+.fund,.comment,.input{
 
     background-color: lightgray;
 
@@ -26,7 +26,7 @@ div{
 }
 
 
-div:hover {
+.fund:hover,.comment:hover,.input:hover {
 
     box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 
