@@ -9,10 +9,11 @@
         <div id="overlay" onclick="close_comment()"></div>
         <nav>
             <h1>Anti Curruption System</h1><hr><br>
-            <select name="state" id="state" onchange="district()">
+            <button id="see_all" onclick="getall()">View All Funds</button>
+            <select name="state" id="state" onclick="district();getstate()">
                 <option value="">---Select State---</option>
             </select>
-            <select name="district" id="district" oninput="getsort()">
+            <select name="district" id="district" onclick="getsort()">
                 <option value="">---Select District---</option>
             </select>            
         </nav>
