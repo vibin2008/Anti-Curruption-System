@@ -570,6 +570,59 @@ function close_comment(){
 
 }
 
+var selected_postid = null;
+function get_comment(post_id){
+  fetch(`https://ayla-ropier-consuela.ngrok-free.dev/comments?post_id=${post_id}`, {
+    method: "GET",
+    headers: {
+      "ngrok-skip-browser-warning": "true"
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    var main = document.getElementById('message');
+    main.innerHTML = ''
+      for(let i=0 ; i<data.length ; i++){
+        var element = document.createElement('div');
+        element.className = "comment_msg";
+        var topic = document.createElement('h4');
+        topic.textContent = data[i].comment;
+        const br = document.createElement('br');
+
+        element.append(topic);
+        main.append(element);
+        main.append(br);
+
+      }
+  });
+}
+
+function post_comment(){
+  var msg = document.getElementById('input_box').value;
+  fetch("https://ayla-ropier-consuela.ngrok-free.dev/post_comment", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true"
+    },
+    body: JSON.stringify({
+        post_id : selected_postid,
+        msg : msg
+    })
+})
+  .then(response => response.json())
+  .then(data => {
+    if(data.status == 'success'){
+      console.log('comment posted');
+      get_comment(selected_postid);
+      msg.value = '';
+    }
+    else{
+      console.log('cannot post comment!')
+    }
+  });
+}
+
 
 function getall() {
 
@@ -582,10 +635,17 @@ function getall() {
   .then(response => response.json())
   .then(data => {
     var main = document.getElementById('main_box');
-    main.innerHTML = ''
+    main.innerHTML = '';
       for(let i=0 ; i<data.length ; i++){
         var element = document.createElement('div');
         element.className = 'fund'; 
+        element.dataset.postId = data[i].post_id;
+        console.log(data[i].postId)
+        element.addEventListener("click", function() {
+                comment();
+                selected_postid = this.dataset.postId;  // camelCase!
+                get_comment(this.dataset.postId);
+              });
         var topic = document.createElement('h4');
         topic.textContent = data[i].purpose;
         var sub_topic = document.createElement('h5');
@@ -618,6 +678,13 @@ function getstate(){
         for(let i=0 ; i<data.length ; i++){
           var element = document.createElement('div');
           element.className = 'fund'; 
+          element.dataset.postId = data[i].post_id;
+          element.addEventListener("click", function() {
+                comment();
+                selected_postid = this.dataset.postId;  // camelCase!
+                console.log("Selected post ID:", selected_postid);
+                get_comment(this.dataset.postId);
+              });
           var topic = document.createElement('h4');
           topic.textContent = data[i].purpose;
           var sub_topic = document.createElement('h5');
@@ -651,6 +718,13 @@ function getsort() {
         for(let i=0 ; i<data.length ; i++){
           var element = document.createElement('div');
           element.className = 'fund'; 
+          element.dataset.postId = data[i].post_id;
+          element.addEventListener("click", function() {
+                comment();
+                selected_postid = this.dataset.postId;  // camelCase!
+                console.log("Selected post ID:", selected_postid);
+                get_comment(this.dataset.postId);   
+              });
           var topic = document.createElement('h4');
           topic.textContent = data[i].purpose;
           var sub_topic = document.createElement('h5');

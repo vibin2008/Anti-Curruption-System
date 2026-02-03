@@ -60,7 +60,7 @@ nav{
 
     right: 0%;
 
-    width: 600px;
+    width: 500px;
 
     height: 100%;
 
@@ -129,4 +129,10 @@ nav{
 
     font-size: larger;
 
+}
+
+.comment_msg{
+    background-color: white;
+    padding: 10px;
+    border: 70%;
 }
