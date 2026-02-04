@@ -93,7 +93,7 @@ nav{
 
     position: fixed;
 
-    top: 82%;
+    top: 79%;
 
     background-color: gray;
 
@@ -155,6 +155,7 @@ nav{
     left: 200px;
     top: 100px;
     text-align: center;
+    width: 500px;
 }
 
 #message {
