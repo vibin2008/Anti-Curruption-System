@@ -620,9 +620,9 @@ function post_comment(){
   .then(response => response.json())
   .then(data => {
     if(data.status == 'success'){
+      msg.value = "";
       console.log('comment posted');
       get_comment(selected_postid);
-      msg.value = '';
     }
     else{
       console.log('cannot post comment!')
