@@ -499,6 +499,13 @@ const state_list = {
 };
 
 
+var selected_postid = null;
+setInterval(function(){
+    get_comment(selected_postid);
+}, 3000);
+
+
+
 function state(){
 
     var state_select = document.getElementById('state');
@@ -548,11 +555,11 @@ function district() {
 function comment(){
 
   var com = document.getElementById('comment');
-
+  var info = document.getElementById('information');
   var overlay = document.getElementById('overlay');
 
   overlay.style.display = 'block';
-
+  info.style.display = 'block';
   com.style.display = 'block';
 
 }
@@ -563,14 +570,14 @@ function close_comment(){
   var com = document.getElementById('comment');
 
   var overlay = document.getElementById('overlay');
+  var info = document.getElementById('information');
 
   overlay.style.display = 'none';
-
+  info.style.display = 'none';
   com.style.display = 'none';
 
 }
 
-var selected_postid = null;
 function get_comment(post_id){
   fetch(`https://ayla-ropier-consuela.ngrok-free.dev/comments?post_id=${post_id}`, {
     method: "GET",
@@ -623,6 +630,43 @@ function post_comment(){
   });
 }
 
+function show_info(data_set){
+  var info = document.getElementById('information');
+  info.innerHTML = '';
+  var head = document.createElement('h2');
+  head.append('Approved Fund Information')
+  var name = document.createElement('h4');
+  name.append("Name of the Authority : " + data_set['name']);
+  var designation = document.createElement('h4');
+  designation.append("Designation of the Authority : " + data_set['designation']);
+  var state = document.createElement('h4');
+  state.append("State : " + data_set['state']);
+  var district = document.createElement('h4');
+  district.append("District : " + data_set['sistrict']);
+  var purpose = document.createElement('h4');
+  purpose.append("Purpose of the Fund : " + data_set['purpose']);
+  var description = document.createElement('h4');
+  description.append("Description : " + data_set['description']);
+  var time = document.createElement('h4');
+  time.append("Time of approval : " + data_set['time']);
+  var ammount = document.createElement('h4');
+  ammount.append("Approved Ammount : " + data_set['amount']);
+  ammount.style.color = "green";
+  const brk = document.createElement('br');
+
+
+  info.append(head);
+  info.append(brk);
+  info.append(name);
+  info.append(designation);
+  info.append(state);
+  info.append(district);
+  info.append(purpose);
+  info.append(description);
+  info.append(time);
+  info.append(ammount);
+}
+
 
 function getall() {
 
@@ -634,17 +678,36 @@ function getall() {
   })
   .then(response => response.json())
   .then(data => {
+    console.log(data);
     var main = document.getElementById('main_box');
     main.innerHTML = '';
       for(let i=0 ; i<data.length ; i++){
         var element = document.createElement('div');
         element.className = 'fund'; 
         element.dataset.postId = data[i].post_id;
-        console.log(data[i].postId)
+        element.dataset.name = data[i].name;
+        element.dataset.purpose = data[i].purpose;
+        element.dataset.designation = data[i].designation;
+        element.dataset.state = data[i].state;
+        element.dataset.district = data[i].district;
+        element.dataset.description = data[i].description;
+        element.dataset.time = data[i].time;
+        element.dataset.amount = data[i].amount;
         element.addEventListener("click", function() {
+                var data_set = {
+                  "name":this.dataset.name,
+                  "purpose":this.dataset.purpose,
+                  "designation":this.dataset.designation,
+                  "state":this.dataset.state,
+                  "district":this.dataset.district,
+                  "description":this.dataset.description,
+                  "time":this.dataset.time,
+                  "amount":this.dataset.amount
+                }
                 comment();
                 selected_postid = this.dataset.postId;  // camelCase!
                 get_comment(this.dataset.postId);
+                show_info(data_set);
               });
         var topic = document.createElement('h4');
         topic.textContent = data[i].purpose;
@@ -679,11 +742,30 @@ function getstate(){
           var element = document.createElement('div');
           element.className = 'fund'; 
           element.dataset.postId = data[i].post_id;
+          element.dataset.name = data[i].name;
+          element.dataset.purpose = data[i].purpose;
+          element.dataset.designation = data[i].designation;
+          element.dataset.state = data[i].state;
+          element.dataset.district = data[i].district;
+          element.dataset.description = data[i].description;
+          element.dataset.time = data[i].time;
+          element.dataset.amount = data[i].amount;
           element.addEventListener("click", function() {
+              var data_set = {
+                  "name":this.dataset.name,
+                  "purpose":this.dataset.purpose,
+                  "designation":this.dataset.designation,
+                  "state":this.dataset.state,
+                  "district":this.dataset.district,
+                  "description":this.dataset.description,
+                  "time":this.dataset.time,
+                  "amount":this.dataset.amount
+                }
                 comment();
                 selected_postid = this.dataset.postId;  // camelCase!
                 console.log("Selected post ID:", selected_postid);
                 get_comment(this.dataset.postId);
+                show_info(data_set);
               });
           var topic = document.createElement('h4');
           topic.textContent = data[i].purpose;
@@ -719,11 +801,30 @@ function getsort() {
           var element = document.createElement('div');
           element.className = 'fund'; 
           element.dataset.postId = data[i].post_id;
+          element.dataset.name = data[i].name;
+          element.dataset.purpose = data[i].purpose;
+          element.dataset.designation = data[i].designation;
+          element.dataset.state = data[i].state;
+          element.dataset.district = data[i].district;
+          element.dataset.description = data[i].description;
+          element.dataset.time = data[i].time;
+          element.dataset.amount = data[i].amount;
           element.addEventListener("click", function() {
+                var data_set = {
+                  "name":this.dataset.name,
+                  "purpose":this.dataset.purpose,
+                  "designation":this.dataset.designation,
+                  "state":this.dataset.state,
+                  "district":this.dataset.district,
+                  "description":this.dataset.description,
+                  "time":this.dataset.time,
+                  "amount":this.dataset.amount
+                }
                 comment();
                 selected_postid = this.dataset.postId;  // camelCase!
                 console.log("Selected post ID:", selected_postid);
-                get_comment(this.dataset.postId);   
+                get_comment(this.dataset.postId); 
+                show_info(data_set);  
               });
           var topic = document.createElement('h4');
           topic.textContent = data[i].purpose;
