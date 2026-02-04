@@ -605,7 +605,8 @@ function get_comment(post_id){
 }
 
 function post_comment(){
-  var msg = document.getElementById('input_box').value;
+  var input = document.getElementById('input_box');
+  var msg = input.value;
   fetch("https://ayla-ropier-consuela.ngrok-free.dev/post_comment", {
     method: "POST",
     headers: {
@@ -620,7 +621,7 @@ function post_comment(){
   .then(response => response.json())
   .then(data => {
     if(data.status == 'success'){
-      msg.value = "";
+      input.value = "";
       console.log('comment posted');
       get_comment(selected_postid);
     }
