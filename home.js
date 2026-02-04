@@ -504,6 +504,17 @@ setInterval(function(){
     get_comment(selected_postid);
 }, 3000);
 
+document.addEventListener("DOMContentLoaded", function () {
+  var inputBox = document.getElementById("input_box");
+
+  inputBox.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();   // Stop new line
+      post_comment();           // Send comment
+    }
+  });
+});
+
 
 
 function state(){
