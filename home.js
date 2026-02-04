@@ -643,7 +643,7 @@ function show_info(data_set){
   var state = document.createElement('h4');
   state.append("State : " + data_set['state']);
   var district = document.createElement('h4');
-  district.append("District : " + data_set['sistrict']);
+  district.append("District : " + data_set['district']);
   var purpose = document.createElement('h4');
   purpose.append("Purpose of the Fund : " + data_set['purpose']);
   var description = document.createElement('h4');
