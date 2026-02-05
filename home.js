@@ -617,8 +617,13 @@ function get_comment(post_id){
 
 function post_comment(){
   var input = document.getElementById('input_box');
-  var msg = input.value;
-  fetch("https://ayla-ropier-consuela.ngrok-free.dev/post_comment", {
+  var msg = input.value.trim();
+  input.value = "";
+  if (msg === ""){
+    return;
+  }
+  else{
+    fetch("https://ayla-ropier-consuela.ngrok-free.dev/post_comment", {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -632,7 +637,6 @@ function post_comment(){
   .then(response => response.json())
   .then(data => {
     if(data.status == 'success'){
-      input.value = "";
       console.log('comment posted');
       get_comment(selected_postid);
     }
@@ -640,6 +644,7 @@ function post_comment(){
       console.log('cannot post comment!')
     }
   });
+  }
 }
 
 function show_info(data_set){
